@@ -60,10 +60,9 @@ trait FilterListPageTrait
         return $this;
     }
 
-    public function assertFilterTextEquals(string $filter, string $expectedText, string $prefix = 'filter_cases'): self
+    public function assertFilterTextEquals(string $filter, string $expectedText): self
     {
-        // When the filter form is refactored to be more generic, filter_cases value should reflect new prefix
-        Assert::assertEquals($expectedText, $this->getFilter($prefix, $filter)->text());
+        Assert::assertEquals($expectedText, $this->getFilterTab($this->getFormPrefix(), $filter)->text());
 
         return $this;
     }
@@ -78,8 +77,8 @@ trait FilterListPageTrait
         return $this->getBrowser()->getCrawler()->filterXPath("//div[contains(@class, 'active-filters')]");
     }
 
-    protected function getFilter(string $prefix, string $filterName): Crawler
+    protected function getFilterTab(string $prefix, string $filterName): Crawler
     {
-        return $this->getBrowser()->getCrawler()->filterXPath(sprintf("//div[@data-row-id='%s_%s']", $prefix, $filterName))->first();
+        return $this->getBrowser()->getCrawler()->filterXPath(sprintf("//div[@data-row-id='%s_%s_tab']", $prefix, $filterName))->first();
     }
 }
