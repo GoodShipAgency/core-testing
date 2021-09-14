@@ -4,7 +4,10 @@
   "minimum-stability": "stable",
   "license": "MIT",
   "require": {
-    "php": "^8.0",
+    "php": "^8.0"
+  },
+  "require-dev": {
+    "vimeo/psalm": "^4.10",
     "phpunit/phpunit": "^9.5",
     "symfony/test-pack": "^1.0",
     "moneyphp/money": "^4.0",
@@ -12,12 +15,9 @@
     "symfony/framework-bundle": "^5.3",
     "guzzlehttp/guzzle": "^7.3"
   },
-  "require-dev": {
-    "vimeo/psalm": "^4.10"
-  },
   "autoload": {
     "psr-4": {
-      "Mashbo\\CoreTesting\\\\": "src/"
+      "Mashbo\\CoreTesting\\": "src/"
     }
   }
 }
