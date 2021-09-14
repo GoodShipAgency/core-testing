@@ -2,6 +2,7 @@
 
 namespace Mashbo\CoreTesting\Support\Browser;
 
+use Mashbo\CoreTesting\Support\ElementObjects\FormElement;
 use Mashbo\CoreTesting\Support\ElementObjects\ListElement;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\BrowserKit\AbstractBrowser;
