@@ -7,7 +7,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 trait KernelContainerTrait
 {
-    protected static ?KernelInterface $kernel;
+    /**
+     * @var KernelInterface
+     */
+    protected static $kernel;
 
     abstract protected static function bootKernel(array $options = []);
 
