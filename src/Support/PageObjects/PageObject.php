@@ -20,4 +20,13 @@ abstract class PageObject
     {
         return $this->browser;
     }
+
+    public function clickLink(string $selector): self
+    {
+        $this->browser->click(
+            $this->browser->getCrawler()->filter($selector)->link()
+        );
+
+        return $this;
+    }
 }
