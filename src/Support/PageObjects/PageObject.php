@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mashbo\CoreTesting\Support\PageObjects;
 
+use Mashbo\CoreTesting\Support\ElementObjects\FormElement;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 
 abstract class PageObject
@@ -26,6 +28,36 @@ abstract class PageObject
         $this->browser->click(
             $this->browser->getCrawler()->filter($selector)->link()
         );
+
+        return $this;
+    }
+
+    /**
+     * @param array<string, string> $args
+     */
+    public function submitSlideoutForm(string $selector, string $prefix, array $args = []): self
+    {
+        $currentUri = $this->browser->getHistory()->current()->getUri();
+
+        $this->clickLink($selector);
+
+        $this->browser->submitForm(
+            $prefix . '_submit',
+            FormElement::prefixFormValues($args, $prefix)
+        );
+
+        $this->browser->request('GET', $currentUri);
+
+        return $this;
+    }
+
+    public function debug(): self
+    {
+        if (!$this->browser instanceof KernelBrowser) {
+            return $this;
+        }
+
+        echo $this->browser->getResponse()->getContent();
 
         return $this;
     }
