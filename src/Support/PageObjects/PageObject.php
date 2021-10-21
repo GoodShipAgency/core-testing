@@ -35,7 +35,7 @@ abstract class PageObject
     /**
      * @param array<string, string> $args
      */
-    public function submitButtonSlideoutForm(string $selector, string $prefix, array $args = []): self
+    public function submitSlideoutForm(string $selector, string $prefix, array $args = []): self
     {
         $currentUri = $this->browser->getHistory()->current()->getUri();
 
