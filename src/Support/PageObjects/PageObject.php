@@ -35,7 +35,7 @@ abstract class PageObject
     /**
      * @param array<string, string> $args
      */
-    public function submitSlideoutForm(string $selector, string $prefix, array $args = []): self
+    public function submitSlideoutForm(string $selector, string $prefix, array $args = []): static
     {
         $currentUri = $this->browser->getHistory()->current()->getUri();
 
@@ -51,7 +51,7 @@ abstract class PageObject
         return $this;
     }
 
-    public function debug(): self
+    public function debug(): static
     {
         if (!$this->browser instanceof KernelBrowser) {
             return $this;
