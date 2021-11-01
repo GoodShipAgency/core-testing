@@ -1,6 +1,6 @@
 {
   "name": "mashbo/core-testing",
-  "description": "Mashbo Core Repository package contains shared code relating to searching and filtering repositories",
+  "description": "Mashbo Core Testing package contains shared code relating to testing applications",
   "minimum-stability": "stable",
   "license": "MIT",
   "require": {
