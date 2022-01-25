@@ -20,7 +20,6 @@ class ListElement implements \IteratorAggregate
 
     private function iterator(): \Generator
     {
-        /** @var \DOMNode $item */
         foreach ($this->crawler->filter($this->rootSelector . ' ' . $this->itemSelector) as $item) {
             yield $item;
         }
