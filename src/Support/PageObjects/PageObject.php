@@ -33,7 +33,7 @@ abstract class PageObject
     }
 
     /**
-     * @param array<string, string> $args
+     * @param array $args
      */
     public function submitSlideoutForm(string $selector, string $prefix, array $args = []): static
     {
