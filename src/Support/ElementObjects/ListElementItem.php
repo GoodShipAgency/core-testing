@@ -14,9 +14,6 @@ class ListElementItem
     public function assertBadge(string $expectedText): self
     {
         foreach ($this->crawler->filter('.badge') as $badge) {
-
-            Assert::true($badge instanceof \DOMNode);
-
             if ($expectedText === trim($badge->textContent)) {
                 Assert::true(true);
                 return $this;
