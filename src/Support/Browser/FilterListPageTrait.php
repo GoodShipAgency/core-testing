@@ -62,14 +62,14 @@ trait FilterListPageTrait
 
     public function assertFilterTextEquals(string $filter, string $expectedText): self
     {
-        Assert::assertEquals($expectedText, $this->getFilterTab($this->getFormPrefix(), $filter)->text());
+        Assert::assertEquals($expectedText, $this->getFilterTab($filter)->text());
 
         return $this;
     }
 
     private function getFilterTokenElement(): Crawler
     {
-        return $this->getBrowser()->getCrawler()->filterXPath(sprintf("//button[@value='%s__token']", $this->getFormPrefix()));
+        return $this->getBrowser()->getCrawler()->filterXPath(sprintf("//button[@value='_token']"));
     }
 
     private function getActiveFiltersElement(): Crawler
@@ -77,8 +77,8 @@ trait FilterListPageTrait
         return $this->getBrowser()->getCrawler()->filterXPath("//div[contains(@class, 'active-filters')]");
     }
 
-    protected function getFilterTab(string $prefix, string $filterName): Crawler
+    protected function getFilterTab(string $filterName): Crawler
     {
-        return $this->getBrowser()->getCrawler()->filterXPath(sprintf("//div[@data-row-id='%s_%s_tab']", $prefix, $filterName))->first();
+        return $this->getBrowser()->getCrawler()->filterXPath(sprintf("//div[@data-row-id='%s_tab']", $filterName))->first();
     }
 }
