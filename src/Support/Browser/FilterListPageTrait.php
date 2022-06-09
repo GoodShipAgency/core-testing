@@ -12,11 +12,13 @@ trait FilterListPageTrait
 {
     abstract protected function getBrowser(): AbstractBrowser;
 
-    protected function getSubmitButtonId(): string {
+    protected function getSubmitButtonId(): string
+    {
         return $this->getFormPrefix() . '_submit';
     }
 
-    protected function getFormPrefix(): string {
+    protected function getFormPrefix(): string
+    {
         return '';
     }
 
@@ -30,9 +32,11 @@ trait FilterListPageTrait
 
     public function filter(array $args): static
     {
+        $args = $this->getFormPrefix() === '' ? $args : FormElement::prefixFormValues($args, $this->getFormPrefix());
+
         $this->getBrowser()->submitForm(
             $this->getSubmitButtonId(),
-            FormElement::prefixFormValues($args, $this->getFormPrefix()),
+            $args,
             'GET'
         );
         return $this;
