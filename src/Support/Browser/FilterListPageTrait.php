@@ -12,9 +12,15 @@ trait FilterListPageTrait
 {
     abstract protected function getBrowser(): AbstractBrowser;
 
-    abstract protected function getSubmitButtonId(): string;
+    protected function getSubmitButtonId(): string
+    {
+        return $this->getFormPrefix() . '_submit';
+    }
 
-    abstract protected function getFormPrefix(): string;
+    protected function getFormPrefix(): string
+    {
+        return '';
+    }
 
     public function assertCount(int $expectedCount): static
     {
@@ -26,9 +32,11 @@ trait FilterListPageTrait
 
     public function filter(array $args): static
     {
+        $args = $this->getFormPrefix() === '' ? $args : FormElement::prefixFormValues($args, $this->getFormPrefix());
+
         $this->getBrowser()->submitForm(
             $this->getSubmitButtonId(),
-            FormElement::prefixFormValues($args, $this->getFormPrefix()),
+            $args,
             'GET'
         );
         return $this;
