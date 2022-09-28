@@ -4,35 +4,29 @@ namespace Mashbo\CoreTesting\Support\Browser;
 
 use PHPUnit\Framework\Assert;
 use Symfony\Component\BrowserKit\AbstractBrowser;
+use Symfony\Component\DomCrawler\Link;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 trait ExportTrait
 {
+    use StreamedResponseTrait;
+
     abstract protected function getBrowser(): AbstractBrowser;
 
-    /**
-     * We need to use output buffering since a StreamedResponse uses echo
-     * so this ends up in the terminal.
-     *
-     * We capture output from the CLI, detect StreamedResponses and convert
-     * to regular Response objects first
-     */
     public function export(): Response
     {
-        ob_start();
-        $this->getBrowser()->click($this->getBrowser()->getCrawler()->filter('.btn.export')->link());
-        $response = $this->getBrowser()->getResponse();
+        $link = $this->getBrowser()->getCrawler()->filter('.btn.export')->link();
+        return $this->exportByLink($link);
+    }
 
-        if ($response instanceof StreamedResponse) {
-            $response = new Response(ob_get_clean(), $response->getStatusCode(), $response->headers->all());
-        }
-
-        if ($response instanceof Response) {
-            return $response;
-        }
-
-        throw new \LogicException("Underlying response was not a HttpFoundation response");
+    /**
+     * We detect StreamedResponses and convert to regular Response objects first
+     */
+    public function exportByLink(Link $link): Response
+    {
+        $this->getBrowser()->click($link);
+        return $this->filterStreamedResponse($this->getBrowser()->getResponse());
     }
 
     public static function assertResponseContentType(Response $response, string $expectedContentType): void
