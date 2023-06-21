@@ -26,6 +26,9 @@ trait ConsoleTestTrait
 
     protected function runCommand(string $command, array $arguments = []): void
     {
+        if (getenv('TEST_TOKEN') !== false) {
+            $command = 'TEST_TOKEN=' . getenv('TEST_TOKEN') . ' ' . $command;
+        }
         $tester = $this->createApplicationTester();
         $input = array_merge(['command' => $command], $arguments);
         $exit = $tester->run($input, ['capture_stderr_separately' => true, 'verbosity' => Output::VERBOSITY_VERBOSE]);

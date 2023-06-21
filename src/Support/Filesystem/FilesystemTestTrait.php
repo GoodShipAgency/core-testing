@@ -16,6 +16,6 @@ trait FilesystemTestTrait
      */
     public function resetFilesBeforeTest(): void
     {
-        shell_exec("rm -rf {$this->userdataPath}* 2>/dev/null");
+        //shell_exec("rm -rf {$this->userdataPath}* 2>/dev/null");
     }
 }
