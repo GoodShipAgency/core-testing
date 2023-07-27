@@ -59,7 +59,7 @@ abstract class PageObject
         }
 
         if ($selector === null) {
-            $this->outputHtml($this->browser->getResponse()->getContent());
+            $this->outputHtml($this->browser->getResponse()->getContent() ?: 'No content');
         } else {
             $node = $this->browser->getCrawler()->filter($selector);
 
@@ -85,6 +85,9 @@ abstract class PageObject
             'wrap' => 200
         ]);
 
+        $tidy->cleanRepair();
+
+        /** @psalm-suppress InvalidArgument */
         echo $tidy;
     }
 }
