@@ -51,14 +51,40 @@ abstract class PageObject
         return $this;
     }
 
-    public function debug(): static
+
+    public function debug(?string $selector = null, bool $includeParent = true): static
     {
         if (!$this->browser instanceof KernelBrowser) {
             return $this;
         }
 
-        echo $this->browser->getResponse()->getContent();
+        if ($selector === null) {
+            $this->outputHtml($this->browser->getResponse()->getContent());
+        } else {
+            $node = $this->browser->getCrawler()->filter($selector);
 
+            if ($includeParent) {
+                $node = $node->ancestors()->first();
+            }
+            $this->outputHtml($node->html());
+        }
         return $this;
+    }
+
+    private function outputHtml(string $html): void
+    {
+        if (!class_exists('\tidy')) {
+            echo $html;
+            return;
+        }
+
+        $tidy = new \tidy;
+        $tidy->parseString($html, [
+            'indent' => true,
+            'output-xhtml' => true,
+            'wrap' => 200
+        ]);
+
+        echo $tidy;
     }
 }

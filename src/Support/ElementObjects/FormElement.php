@@ -13,7 +13,7 @@ class FormElement
         return $prefix . "[$field]";
     }
 
-    /** @param array<string, string|array> $values */
+    /** @param array<string, mixed> $values */
     public static function prefixFormValues(array $values, string $prefix): array
     {
         $prefixed = [];
