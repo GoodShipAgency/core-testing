@@ -71,6 +71,9 @@ abstract class PageObject
         return $this;
     }
 
+    /**
+     * @psalm-suppress all
+     */
     private function outputHtml(string $html): void
     {
         if (!class_exists('\tidy')) {
