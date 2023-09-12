@@ -93,4 +93,21 @@ abstract class PageObject
         /** @psalm-suppress InvalidArgument */
         echo $tidy;
     }
+
+    /**
+     * @template T of PageObject
+     *
+     * @param class-string<T> $pageClass
+     * @psalm-param class-string<T> $pageClass
+     *
+     * @return T
+     * @psalm-return T
+     */
+    public function followRedirectToPage(string $pageClass): self
+    {
+        $this->browser->followRedirect();
+
+        /** @psalm-suppress UnsafeInstantiation */
+        return new $pageClass($this->browser);
+    }
 }
