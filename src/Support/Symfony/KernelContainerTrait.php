@@ -2,16 +2,14 @@
 
 namespace Mashbo\CoreTesting\Support\Symfony;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 
+/**
+ * @mixin KernelTestCase
+ */
 trait KernelContainerTrait
 {
-    /**
-     * @var KernelInterface
-     */
-    protected static $kernel;
-
     abstract protected static function bootKernel(array $options = []);
 
     protected static function getKernel(): KernelInterface
